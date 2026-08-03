@@ -483,6 +483,23 @@ blockquote {
   margin: 2.2rem 0 0;
 }
 
+.simulator-permalink {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 900;
+  gap: 0.5rem;
+  letter-spacing: 0.07em;
+  margin-top: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.simulator-permalink span {
+  color: var(--accent-dark);
+  font-size: 1rem;
+}
+
 .simulator-result {
   background: var(--green);
   color: var(--surface);

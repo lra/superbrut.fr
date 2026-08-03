@@ -1,7 +1,7 @@
 'use client'
 
 import type { CSSProperties } from 'react'
-import { useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 interface SalaryPoint {
   net: number
@@ -10,6 +10,7 @@ interface SalaryPoint {
 
 const MINIMUM_SUPER_GROSS = 1_988
 const MAXIMUM_SUPER_GROSS = 18_000
+const SUPER_GROSS_CHANGE_EVENT = 'superbrut-change'
 
 const salaryPoints: readonly SalaryPoint[] = [
   { net: 1_455.99, superGross: 1_987.76 },
@@ -38,12 +39,23 @@ const currencyFormatter = new Intl.NumberFormat('fr-FR', {
 })
 
 export function SalarySimulator() {
-  const [superGross, setSuperGross] = useState(4_000)
+  const linkedSuperGross = useSyncExternalStore(subscribeToSuperGross, getLinkedSuperGross, getServerSuperGross)
+  const superGross = linkedSuperGross ?? 4_000
   const salary = interpolateSalary(superGross)
   const contributions = superGross - salary.net
   const netShare = (salary.net / superGross) * 100
   const progress = ((superGross - MINIMUM_SUPER_GROSS) / (MAXIMUM_SUPER_GROSS - MINIMUM_SUPER_GROSS)) * 100
   const sliderStyle = { '--slider-progress': `${progress}%` } as CSSProperties
+
+  function selectSalary(amount: number) {
+    const normalizedAmount = normalizeSuperGross(amount)
+    const url = new URL(window.location.href)
+    url.searchParams.set('superbrut', String(normalizedAmount))
+    url.hash = 'simulateur'
+
+    window.history.replaceState(null, '', url)
+    window.dispatchEvent(new Event(SUPER_GROSS_CHANGE_EVENT))
+  }
 
   return (
     <section aria-labelledby="simulator-title" className="simulator-section" id="simulateur">
@@ -71,7 +83,7 @@ export function SalarySimulator() {
               id="super-gross-slider"
               max={MAXIMUM_SUPER_GROSS}
               min={MINIMUM_SUPER_GROSS}
-              onChange={(event) => setSuperGross(Number(event.target.value))}
+              onChange={(event) => selectSalary(Number(event.target.value))}
               step="1"
               style={sliderStyle}
               type="range"
@@ -87,7 +99,7 @@ export function SalarySimulator() {
                 <button
                   aria-pressed={superGross === quickPick.value}
                   key={quickPick.label}
-                  onClick={() => setSuperGross(quickPick.value)}
+                  onClick={() => selectSalary(quickPick.value)}
                   type="button"
                 >
                   {quickPick.label}
@@ -98,6 +110,9 @@ export function SalarySimulator() {
             <p className="simulator-assumptions">
               Estimation 2026, salarié non-cadre en CDI, à temps plein, avant impôt sur le revenu.
             </p>
+            <a className="simulator-permalink" href={`/?superbrut=${superGross}#simulateur`}>
+              Lien direct vers ce salaire <span aria-hidden="true">↗</span>
+            </a>
           </div>
 
           <div className="simulator-result">
@@ -171,4 +186,30 @@ function getSalaryMood(net: number) {
   if (net < 6_000) return 'Belle accélération'
   if (net < 9_000) return 'Plein régime'
   return 'Boss final'
+}
+
+function normalizeSuperGross(amount: number) {
+  return Math.min(MAXIMUM_SUPER_GROSS, Math.max(MINIMUM_SUPER_GROSS, Math.round(amount)))
+}
+
+function subscribeToSuperGross(onStoreChange: () => void) {
+  window.addEventListener('popstate', onStoreChange)
+  window.addEventListener(SUPER_GROSS_CHANGE_EVENT, onStoreChange)
+
+  return () => {
+    window.removeEventListener('popstate', onStoreChange)
+    window.removeEventListener(SUPER_GROSS_CHANGE_EVENT, onStoreChange)
+  }
+}
+
+function getLinkedSuperGross() {
+  const linkedSalary = new URLSearchParams(window.location.search).get('superbrut')
+  if (linkedSalary === null || linkedSalary.trim() === '') return null
+
+  const amount = Number(linkedSalary)
+  return Number.isFinite(amount) ? normalizeSuperGross(amount) : null
+}
+
+function getServerSuperGross() {
+  return null
 }
