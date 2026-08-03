@@ -1,6 +1,6 @@
 # superbrut.fr
 
-The website for **superbrut**, a French association advocating for clearer payslips and transparent social contributions.
+The website for **superbrut**, a French citizen initiative advocating for clearer payslips and transparent social contributions.
 
 ## Development
 

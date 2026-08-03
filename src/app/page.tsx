@@ -18,7 +18,7 @@ export default function HomePage() {
       <main id="top">
         <section className="hero">
           <div className="hero-content">
-            <p className="eyebrow">Association citoyenne indépendante</p>
+            <p className="eyebrow">Initiative citoyenne indépendante</p>
             <h1>Le vrai salaire, c’est le superbrut.</h1>
             <p className="hero-lead">
               La distinction entre cotisations sociales patronales et salariales, comme la notion de salaire brut qui en découle, sont des fictions comptables qui cachent aux salariés français le coût réel de notre système social.
@@ -138,7 +138,7 @@ export default function HomePage() {
                   ]}
                 />
                 <p>
-                  <strong>La présentation actuelle des fiches de paie est trompeuse.</strong> Elle cache ce que coûte vraiment le modèle social. C’est pour apporter la transparence due aux citoyens que nous avons créé l’association superbrut.
+                  <strong>La présentation actuelle des fiches de paie est trompeuse.</strong> Elle cache ce que coûte vraiment le modèle social. C’est pour apporter la transparence due aux citoyens que nous avons créé superbrut.
                 </p>
               </div>
             </div>
@@ -260,20 +260,13 @@ export default function HomePage() {
               <div className="participation-grid">
                 <section>
                   <p className="card-number">01</p>
-                  <h3>Adhérer</h3>
-                  <p>
-                    Superbrut est une association régie par la loi du 1<sup>er</sup> juillet 1901 et le décret du 16 août 1901. Adhérer nous donne plus de poids et aide à financer nos actions.
-                  </p>
-                </section>
-                <section>
-                  <p className="card-number">02</p>
                   <h3>Militer</h3>
                   <p>
                     Il est essentiel de convaincre nos élus que notre proposition dispose d’un réel soutien. Relayez ce message auprès des décideurs politiques, à commencer par votre député.
                   </p>
                 </section>
                 <section>
-                  <p className="card-number">03</p>
+                  <p className="card-number">02</p>
                   <h3>Diffuser</h3>
                   <p>
                     Auprès de vos amis, collègues, proches ou sur les réseaux sociaux&nbsp;: diffusez notre message et faites connaître nos propositions le plus largement possible.
