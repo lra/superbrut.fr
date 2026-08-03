@@ -1,4 +1,5 @@
 import { SalaryBreakdown } from '@/home/salary-breakdown'
+import { SalarySimulator } from '@/home/salary-simulator'
 
 export default function HomePage() {
   return (
@@ -8,8 +9,9 @@ export default function HomePage() {
           super<span>brut</span>
         </a>
         <nav aria-label="Navigation principale">
+          <a href="#simulateur">Simulateur</a>
           <a href="#probleme">Le problème</a>
-          <a href="#objectifs">Nos objectifs</a>
+          <a className="secondary-nav-link" href="#objectifs">Nos objectifs</a>
           <a href="#participer">Participer</a>
           <a href="#questions">Questions</a>
         </nav>
@@ -26,8 +28,8 @@ export default function HomePage() {
             <p>
               Nous demandons au législateur que toutes les cotisations sociales soient regroupées en un seul ensemble et que les salariés soient officiellement rémunérés à hauteur de ce que dépensent réellement leurs employeurs&nbsp;: le <strong>superbrut</strong>.
             </p>
-            <a className="hero-link" href="#objectifs">
-              Découvrir notre proposition <span aria-hidden="true">↓</span>
+            <a className="hero-link" href="#simulateur">
+              Tester votre salaire <span aria-hidden="true">↓</span>
             </a>
           </div>
 
@@ -43,6 +45,8 @@ export default function HomePage() {
             />
           </aside>
         </section>
+
+        <SalarySimulator />
 
         <article>
           <section className="content-section" id="probleme">
