@@ -188,13 +188,16 @@ h1 {
   max-width: 52rem;
 }
 
-.section-content h2 {
+.section-content > h1,
+.section-content > h2 {
   font-size: clamp(3.2rem, 7vw, 6rem);
   line-height: 0.95;
   margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  max-width: none;
 }
 
-.section-content h3 {
+.section-content > h3,
+.section-content > h2.subsection-title {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: clamp(1.65rem, 3vw, 2.4rem);
   font-weight: 500;
@@ -346,7 +349,7 @@ blockquote {
   text-transform: uppercase;
 }
 
-.simulator-heading h2 {
+.simulator-heading h1 {
   font-size: clamp(3.4rem, 8vw, 7rem);
   line-height: 0.88;
   margin: 0;
@@ -769,7 +772,7 @@ blockquote {
   padding: clamp(1.4rem, 3vw, 2.2rem);
 }
 
-.participation-grid h3 {
+.participation-grid .card-title {
   font-size: 1.8rem;
   margin: 1.5rem 0 1rem;
 }
@@ -852,15 +855,12 @@ footer p {
 @media (max-width: 42rem) {
   .site-header {
     align-items: flex-start;
+    flex-direction: column;
     gap: 1rem;
   }
 
   nav {
-    justify-content: flex-end;
-  }
-
-  .secondary-nav-link {
-    display: none;
+    justify-content: flex-start;
   }
 
   .simulator-card {
@@ -884,7 +884,8 @@ footer p {
     grid-template-columns: 1fr;
   }
 
-  .section-content h2 {
+  .section-content > h1,
+  .section-content > h2:not(.subsection-title) {
     margin-bottom: 2.5rem;
   }
 
