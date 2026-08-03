@@ -51,7 +51,6 @@ export function SalarySimulator() {
     const normalizedAmount = normalizeSuperGross(amount)
     const url = new URL(window.location.href)
     url.searchParams.set('superbrut', String(normalizedAmount))
-    url.hash = 'simulateur'
 
     window.history.replaceState(null, '', url)
     window.dispatchEvent(new Event(SUPER_GROSS_CHANGE_EVENT))
@@ -62,7 +61,7 @@ export function SalarySimulator() {
       <div className="simulator-wrap">
         <header className="simulator-heading">
           <p className="simulator-kicker">À vous de jouer</p>
-          <h2 id="simulator-title">Votre salaire passe où&nbsp;?</h2>
+          <h1 id="simulator-title">Votre salaire passe où&nbsp;?</h1>
           <p>
             Faites glisser le superbrut — tout ce que paie l’employeur — et regardez ce qu’il vous reste vraiment avant impôt.
           </p>
@@ -110,7 +109,7 @@ export function SalarySimulator() {
             <p className="simulator-assumptions">
               Estimation 2026, salarié non-cadre en CDI, à temps plein, avant impôt sur le revenu.
             </p>
-            <a className="simulator-permalink" href={`/?superbrut=${superGross}#simulateur`}>
+            <a className="simulator-permalink" href={`/?superbrut=${superGross}`}>
               Lien direct vers ce salaire <span aria-hidden="true">↗</span>
             </a>
           </div>
