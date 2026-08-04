@@ -18,5 +18,6 @@ Run the project checks with:
 ```sh
 pnpm lint
 pnpm typecheck
+pnpm test
 pnpm build
 ```
